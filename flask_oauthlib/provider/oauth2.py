@@ -69,10 +69,11 @@ class OAuth2Provider(object):
             return jsonify(request.oauth.user)
     """
 
-    def __init__(self, app=None):
+    def __init__(self, app=None, server_class=Server):
         self._before_request_funcs = []
         self._after_request_funcs = []
         self._invalid_response = None
+        self._server_class = server_class
         if app:
             self.init_app(app)
 
@@ -138,7 +139,7 @@ class OAuth2Provider(object):
             refresh_token_generator = import_string(refresh_token_generator)
 
         if hasattr(self, '_validator'):
-            return Server(
+            return self._server_class(
                 self._validator,
                 token_expires_in=expires_in,
                 token_generator=token_generator,
@@ -164,7 +165,7 @@ class OAuth2Provider(object):
                 grantsetter=self._grantsetter,
             )
             self._validator = validator
-            return Server(
+            return self._server_class(
                 validator,
                 token_expires_in=expires_in,
                 token_generator=token_generator,
