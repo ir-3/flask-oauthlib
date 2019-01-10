@@ -44,10 +44,10 @@ You should follow the code style. Here are some tips to make things simple:
 Git Help
 --------
 
-Something you should know about git.
+Somethings you should know about git.
 
 * don't add any code on the master branch, create a new one
-* don't add too many code in one pull request
+* don't add too much code in one pull request
 * all featured branches should be based on the master branch
 * don't merge any code yourself
 
